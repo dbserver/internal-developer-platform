@@ -1,5 +1,5 @@
 app:
-  title: Scaffolded Backstage App
+  title: Db developer portal
   baseUrl: http://localhost:3000
 
 organization:
@@ -74,8 +74,12 @@ techdocs:
     type: 'local' # Alternatives - 'googleGcs' or 'awsS3'. Read documentation for using alternatives.
 
 auth:
-  # see https://backstage.io/docs/auth/ to learn about auth providers
-  providers: {}
+  environment: development
+  providers:
+    github:
+      development:
+        clientId: 'aeaef8d948e1005c7d71'
+        clientSecret: 'b4c39b9da93370f99e4b84ec9016914ef57a0b86'
 
 scaffolder:
   # see https://backstage.io/docs/features/software-templates/configuration for software template options
