@@ -56,6 +56,13 @@ integrations:
     #   token: ${GHE_TOKEN}
 
 proxy:
+  '/argocd/api':
+    target: https://localhost:8080/api/v1/
+    changeOrigin: true
+    secure: false
+    headers:
+      Cookie:
+        $env: ARGOCD_AUTH_TOKEN
   ### Example for how to add a proxy endpoint for the frontend.
   ### A typical reason to do this is to handle HTTPS and CORS for internal services.
   # '/test':
