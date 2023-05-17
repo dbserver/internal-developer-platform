@@ -1,9 +1,0 @@
-apiVersion: backstage.io/v1alpha1
-kind: Component
-metadata:
-  name: db-developer-portal
-
-spec:
-  type: website
-  owner: user@db.tec.br
-  lifecycle: experimental

@@ -1,0 +1,47 @@
+version: '3.6'
+
+services:
+      
+  backstage:
+    image: ${BACKSTAGE_IMAGE}
+    depends_on:
+      - db
+      - techdocs
+    env_file: .env
+    volumes:
+      - ./techdocs:${TECHDOCS_DIR}
+
+  db:
+    image: postgres:14.1-alpine
+    restart: always
+    environment:
+      - POSTGRES_HOST=${POSTGRES_HOST}
+      - POSTGRES_PORT=${POSTGRES_PORT}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    ports:
+      - '5432:5432'
+    volumes: 
+      - db:/var/lib/postgresql/data
+
+  techdocs:
+    image: lscr.io/linuxserver/openssh-server:latest
+    environment:
+      - PUID=${TECHDOCS_UID}
+      - PGID=${TECHDOCS_GID}
+      - PUBLIC_KEY=${TECHDOCS_SSH_PUBLIC_KEY}
+      - USER_NAME=techdocs
+    volumes:
+      - ssh-config:/config
+      - ./techdocs:${TECHDOCS_DIR}
+    ports:
+      - 2222:2222
+    restart: unless-stopped
+    
+volumes:
+  db:
+    driver: local
+  ssh-config:
+    driver: local
+  letsencrypt:
+    driver: local

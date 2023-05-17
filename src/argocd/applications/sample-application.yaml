@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: my-kubernetes-component
+  namespace: argocd
+spec:
+  destination:
+    namespace: default
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    # helm:
+    #   valueFiles:
+    #     - values.yaml
+    path: ./
+    repoURL: https://github.com/riguelbf/myservice-idp-test-2/tree/master/
+    targetRevision: HEAD
+  syncPolicy:
+    automated: {}
