@@ -28,18 +28,20 @@ docker-techdocs:
 docker-gitlab:
 	docker-compose --env-file ./global-variables.env --file ./src/gitlab/docker-compose.yml up -d --build -V
 
-
 ##################### GITLAB #####################
 
 gitlab-get-admin-data:
 	docker exec -it gitlab-web-idp grep 'Password:' /etc/gitlab/initial_root_password
 
 
-##################### INSTALL DEPENDENCIES #####################
+##################### MINIKUBE #####################
+run-minikube-dashboard:
+	minikube dashboard
+	
+minikube-start:
+	minikube start --driver=docker
 
-# Install the ArgoCD on minikube (* minikube installed is require before)
-install-argocd:
-	sh ./scripts/install-argocd.sh
+##################### ARGOCD #####################
 
 # Add new app on ArgoCd
 argocd-add-app:
@@ -51,6 +53,12 @@ argocd-add-app:
 # echo $PATH_APP "aquiiiii"
 # kubectl apply -f path_app
 
+##################### INSTALL DEPENDENCIES #####################
+
+# Install the ArgoCD on minikube (* minikube installed is require before)
+install-argocd:
+	sh ./scripts/install-argocd.sh
+
 # Install Node js, Nvm (node version manager), Yarn
 install-nodejs:
 	sh ./scripts/install-nodejs.sh \
@@ -58,14 +66,13 @@ install-nodejs:
 install-minikube:
 	sh ./scripts/install-minikube.sh \
 
-# Start minikube
-minikube-start:
-	minikube start --driver=docker
-
-install-dependencies: install-nodejs install-minikube install-argocd run-infra
+# Install minikube and cread default cluster
+install-dependencies: install-nodejs install-minikube install-argocd
 
 ##################### RUNNING #####################
 
 # Inicializa toda a infrestrutura, executando todos os docker-compose
 run-infra:
-	sh docker-sed.sh
+	make docker-postgres
+	make docker-backstage
+	sh ./scripts/run-argocd.sh

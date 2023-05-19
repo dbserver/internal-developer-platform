@@ -1,5 +1,9 @@
 #!/bin/sh
 
+echo "###############################################################"
+echo "#########           INSTALL NODE JS/NPM/YARN          #########"
+echo "###############################################################"
+
 set -e
 # Install node and npm via nvm - https://github.com/creationix/nvm
 

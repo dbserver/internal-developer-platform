@@ -1,7 +1,7 @@
 version: '3.6'
 
 services:
-      
+
   backstage:
     image: ${BACKSTAGE_IMAGE}
     depends_on:
@@ -21,7 +21,7 @@ services:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     ports:
       - '5432:5432'
-    volumes: 
+    volumes:
       - db:/var/lib/postgresql/data
 
   techdocs:
@@ -37,7 +37,7 @@ services:
     ports:
       - 2222:2222
     restart: unless-stopped
-    
+
 volumes:
   db:
     driver: local
