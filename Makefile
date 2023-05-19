@@ -55,10 +55,14 @@ argocd-add-app:
 install-nodejs:
 	sh ./scripts/install-nodejs.sh \
 
+install-minikube:
+	sh ./scripts/install-minikube.sh \
+
 # Start minikube
 minikube-start:
 	minikube start --driver=docker
 
+install-dependencies: install-nodejs install-minikube install-argocd run-infra
 
 ##################### RUNNING #####################
 
