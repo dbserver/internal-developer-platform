@@ -1,5 +1,5 @@
 <p align="center">
-    ![logo_db_idp](https://github.com/dbserver/internal-developer-platform/assets/7014252/8a3cba58-56e4-4d0f-aba2-bb023ab1650d)
+    <img src="https://github.com/dbserver/internal-developer-platform/assets/7014252/8a3cba58-56e4-4d0f-aba2-bb023ab1650d)">
 </p>
 
 
