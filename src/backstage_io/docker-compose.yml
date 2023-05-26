@@ -1,0 +1,17 @@
+version: '3.6'
+
+services:
+  backstage:
+    backstage:
+    image: backstage
+    container_name: backstage-idp
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_HOST_AUTH_METHOD=trust
+    ports:
+      - '7000:7000'
+
+volumes:
+  postgresql-data:
