@@ -1,3 +1,32 @@
+##################### INSTALL DEPENDENCIES #####################
+
+# Download Kubectl
+install-kubectl:
+	@rm -fv kubectl
+	curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+	@chmod 777 kubectl
+
+# Install the ArgoCD on minikube (* minikube installed is require before)
+install-argocd:
+	sh ./scripts/installations/install-argocd.sh
+
+# Install Node js, Nvm (node version manager), Yarn
+install-nodejs:
+	sh ./scripts/installations/install-nodejs.sh \
+
+install-minikube:
+	sh ./scripts/installations/install-minikube.sh \
+
+# Install minikube and cread default cluster
+install-dependencies: install-nodejs install-minikube install-kubectl install-argocd
+
+##################### RUNNING #####################
+
+# Inicializa toda a infrestrutura, executando todos os docker-compose
+run-infra:
+	make docker-postgres
+	make docker-backstage
+	sh ./scripts/run-argocd.sh
 
 ##################### DOCKER #####################
 
@@ -53,26 +82,3 @@ argocd-add-app:
 # echo $PATH_APP "aquiiiii"
 # kubectl apply -f path_app
 
-##################### INSTALL DEPENDENCIES #####################
-
-# Install the ArgoCD on minikube (* minikube installed is require before)
-install-argocd:
-	sh ./scripts/install-argocd.sh
-
-# Install Node js, Nvm (node version manager), Yarn
-install-nodejs:
-	sh ./scripts/install-nodejs.sh \
-
-install-minikube:
-	sh ./scripts/install-minikube.sh \
-
-# Install minikube and cread default cluster
-install-dependencies: install-nodejs install-minikube install-argocd
-
-##################### RUNNING #####################
-
-# Inicializa toda a infrestrutura, executando todos os docker-compose
-run-infra:
-	make docker-postgres
-	make docker-backstage
-	sh ./scripts/run-argocd.sh

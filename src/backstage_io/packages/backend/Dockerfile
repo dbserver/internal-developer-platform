@@ -20,7 +20,7 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     yarn config set python /usr/bin/python3
 
 # From here on we use the least-privileged `node` user to run the backend.
-USER node
+USER root
 
 # For tech docs it's necessary
 RUN apt-get update && apt-get install -y python3 python3-pip
