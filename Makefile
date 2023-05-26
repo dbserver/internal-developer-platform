@@ -14,9 +14,15 @@ docker-backstage:
 	cd ./src/backstage_io; echo "I'm in backstage_io"; \
 	yarn install --frozen-lockfile; \
 	yarn tsc; \
-	yarn build:backend --config ./app-config.yaml; \
+	yarn build:backend --config app-config.yaml; \
+	docker ps -q --filter "name=backstage-idp" | grep -q . && docker kill backstage-idp || echo Building image... ; \
 	docker image build . -f ./packages/backend/Dockerfile --tag backstage; \
-	docker run --env-file ./../../global-variables.env -it -p 7007:7007 backstage;
+	docker run --name backstage-idp --env-file ./../../global-variables.env -it -p 7007:7007 backstage;
+
+docker-backstage-2:
+	cd ./src/backstage_io; echo "I'm in backstage_io"; \
+	docker image build . -f ./packages/backend/Dockerfile --tag backstage; \
+	docker-compose --env-file ./../../global-variables.env --file ./docker-compose.yml up -d --build -V
 
 # Tech docs to Backstage.io
 docker-techdocs:
