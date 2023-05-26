@@ -57,14 +57,14 @@ argocd-add-app:
 
 # Install the ArgoCD on minikube (* minikube installed is require before)
 install-argocd:
-	sh ./scripts/install-argocd.sh
+	sh ./scripts/installations/install-argocd.sh
 
 # Install Node js, Nvm (node version manager), Yarn
 install-nodejs:
-	sh ./scripts/install-nodejs.sh \
+	sh ./scripts/installations/install-nodejs.sh \
 
 install-minikube:
-	sh ./scripts/install-minikube.sh \
+	sh ./scripts/installations/install-minikube.sh \
 
 # Install minikube and cread default cluster
 install-dependencies: install-nodejs install-minikube install-argocd
