@@ -102,6 +102,10 @@ Visando orquestrar os serviços de maneira homogênea o ArgoCD nos dará flexibi
 ### Camada de acesso a dados (Data)
 A responsabilidade dessa camada é limitada às operações Criar, Recuperar, Atualizar e Excluir (CRUD) em uma fonte de dados, que geralmente é um banco de dados relacional ou não relacional. As classes de repositório geralmente são colocadas em um pacote de repositório.
 
+### System Design
+
+![image](https://github.com/dbserver/internal-developer-platform/assets/7014252/a7914072-5ab5-4644-a041-0931b1036d99)
+
 
 ## 🏬 Banco de dados
 
