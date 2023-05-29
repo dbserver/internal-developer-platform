@@ -145,3 +145,15 @@ Para gerenciar, executar scripts sugerimos a utilização do [DBeaver](https://d
 ## Sobre padrões no versionamento do código
 
 É desejado que seja utilizado o padrão de Commits Semânticos. Pode entender melhor [nesse link](https://github.com/iuricode/padroes-de-commits)
+
+## Próximos passos
+
+- [ ] Adicionar o Sonarqube
+- [ ] Adicionar o plugin do Kubernetes
+- [ ] Alterar o SSO para o Azure AD
+- [ ] Adicionar ferramenta de provisionamento
+
+# Contribuidores
+
+| [<img src="https://avatars.githubusercontent.com/u/7014252?v=4" width=115><br><sub>Riguel Figueiro</sub>](https://github.com/riguelbf) |  [<img src="https://avatars.githubusercontent.com/u/53705736?v=4" width=115><br><sub>Ivo Fulco</sub>](https://github.com/ivofulco) |
+| :---: | :---: | 
