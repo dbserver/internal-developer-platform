@@ -57,7 +57,7 @@ Create token succeeded for proj:default:backstage.
   ID: 06203eaa-8048-440f-9c42-1a522cf1e522
   Issued At: 2023-04-11T17:51:58-03:00
   Expires At: Never
-  Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhcmdvY2QiLCJzdWIiOiJwcm9qOmRlZmF1bHQ6YmFja3N0YWdlIiwibmJmIjoxNjgxMjQ2MzE4LCJpYXQiOjE2ODEyNDYzMTgsImp0aSI6IjA2MjAzZWFhLTgwNDgtNDQwZi05YzQyLTFhNTIyY2YxZTUyMiJ9.n1M52JzzL74PKCtNlhw3eJKvZ8Pnr-vWMyeikNshcj4
+  Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhcmdvY2QiLCJzdWIiOiJwcm9qOmRlZmF1bHQ6ZGV2ZWxvcGVyLXBvcnRhbC11c2VyCg==IiwibmJmIjoxNjgxMjQ2MzE4LCJpYXQiOjE2ODEyNDYzMTgsImp0aSI6IjA2MjAzZWFhLTgwNDgtNDQwZi05YzQyLTFhNTIyY2YxZTUyMiJ9.n1M52JzzL74PKCtNlhw3eJKvZ8Pnr-vWMyeikNshcj4
 
 ```
 
