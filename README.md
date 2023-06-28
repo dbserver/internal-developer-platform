@@ -46,9 +46,9 @@ Como pré requisitos temos os seguintes itens:
 
 | Name                      | Where to get?                                                                                                   |
 | :------------------------ | :-------------------------------------------------------------------------------------------------------------- |
-| GITHUB_ACCESS_TOKEN       | Generate a new personal access token in [GIthub Secure page](https://github.com/settings/tokens)                |
-| AUTH_GITHUB_CLIENT_ID     | Get in [Github app ID](https://github.com/organizations/devxp-tech/settings/applications/1927877)             |
-| AUTH_GITHUB_CLIENT_SECRET | Open a tiket to Devxp to share this value                                                                       |
+| GITHUB_TOKEN       | Generate a new personal access token in [GIthub Secure page](https://github.com/settings/tokens)                |
+| GITHUB_CLIENT_ID     | Get in [Github app ID](https://github.com/organizations/devxp-tech/settings/applications/1927877)             |
+| GITHUB_CLIENT_SECRET | Open a tiket to Devxp to share this value                                                                       |
 | SONARQUBE_TOKEN           | Create a `Sonarqube` token using this [documentation](https://docs.sonarqube.org/latest/user-guide/user-token/) |
 
 Todos os ambientes acima de `DEVEM` ser exportados em seu contexto bash como abaixo:
