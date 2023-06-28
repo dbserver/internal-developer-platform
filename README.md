@@ -55,9 +55,9 @@ Todos os ambientes acima de `DEVEM` ser exportados em seu contexto bash como aba
 
 ```sh
 # .bashrc or .zshrc
-export GITHUB_ACCESS_TOKEN='YOUR-TOKEN-HERE'
-export AUTH_GITHUB_CLIENT_ID='YOUR-TOKEN-HERE'
-export AUTH_GITHUB_CLIENT_SECRET='YOUR-TOKEN-HERE'
+export GITHUB_TOKEN='YOUR-TOKEN-HERE'
+export GITHUB_CLIENT_ID='YOUR-TOKEN-HERE'
+export GITHUB_CLIENT_SECRET='YOUR-TOKEN-HERE'
 export SONARQUBE_TOKEN='YOUR-TOKEN-HERE'
 ```
 
