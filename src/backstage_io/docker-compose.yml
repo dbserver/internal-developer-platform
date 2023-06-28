@@ -1,17 +1,45 @@
-version: '3.6'
-
+version: "3.8"
 services:
-  backstage:
-    backstage:
-    image: backstage
-    container_name: backstage-idp
-    environment:
-      - POSTGRES_USER=${POSTGRES_USER}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - POSTGRES_DB=${POSTGRES_DB}
-      - POSTGRES_HOST_AUTH_METHOD=trust
+  app:
+    image: backstage:dev
+    build:
+      context: .
+      target: dev
+    command: sh -c 'yarn dev'
+    working_dir: /app/app
+    hostname: backstage.local
+    volumes:
+      - ./app:/app
     ports:
-      - '7000:7000'
+      - 7007:7007
+      - 3000:3000
+    environment:
+      - ENV=development
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - PGDATABASE=backstage
+      - GITHUB_ACCESS_TOKEN=$GITHUB_ACCESS_TOKEN
+      - AUTH_GITHUB_CLIENT_ID=$AUTH_GITHUB_CLIENT_ID
+      - AUTH_GITHUB_CLIENT_SECRET=$AUTH_GITHUB_CLIENT_SECRET
+      - POSTGRES_DATABASE=backstage
+      - SONARQUBE_TOKEN=$SONARQUBE_TOKEN
+      - GIT_DISCOVERY_ACROSS_FILESYSTEM=1
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:latest
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=backstage
+      - PGDATA=/var/lib/postgresql/data
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
 
 volumes:
-  postgresql-data:
+  pgdata: {}

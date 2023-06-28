@@ -2,6 +2,15 @@ app:
   title: Db developer portal
   baseUrl: http://localhost:3000
 
+  support:
+    url: https://github.com/dbserver/internal-developer-platform/issues # Used by common ErrorPage
+    items: # Used by common SupportButton component
+      - title: Issues
+        icon: github
+        links:
+          - url: https://github.com/dbserver/internal-developer-platform/issues
+            title: GitHub Issues
+
 organization:
   name: DbServer
 
@@ -19,6 +28,7 @@ backend:
     # host: 127.0.0.1
   csp:
     connect-src: ["'self'", 'http:', 'https:']
+    img-src: ["'self'", 'data:', 'https://avatars.githubusercontent.com']
     # Content-Security-Policy directives follow the Helmet format: https://helmetjs.github.io/#reference
     # Default Helmet Content-Security-Policy values can be removed by setting the key to false
   cors:
@@ -31,8 +41,9 @@ backend:
     ###### In memory database #######
     client: better-sqlite3
     connection: ':memory:'
-    cache:
-      store: memory
+
+  cache:
+    store: memory
 
     ###### PostgreSQL database #######
     # client: pg
@@ -51,11 +62,24 @@ integrations:
     - host: github.com
       # This is a Personal Access Token or PAT from GitHub. You can find out how to generate this token, and more information
       # about setting up the GitHub integration here: https://backstage.io/docs/getting-started/configuration#setting-up-a-github-integration
-      token: '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'
+      token: ${GITHUB_TOKEN}
     ### Example for how to add your GitHub Enterprise instance using the API:
     # - host: ghe.example.net
     #   apiBaseUrl: https://ghe.example.net/api/v3
     #   token: ${GHE_TOKEN}
+
+kubernetes:
+  serviceLocatorMethod:
+    type: multiTenant
+  clusterLocatorMethods:
+    - type: config
+      clusters:
+        - url: ${K8S_URL}
+          name: development
+          authProvider: serviceAccount
+          skipTLSVerify: true
+          skipMetricsLookup: true
+          serviceAccountToken: ${K8S_TOKEN}
 
 proxy:
   '/argocd/api':
@@ -65,11 +89,30 @@ proxy:
     headers:
       Cookie:
         $env: ARGOCD_AUTH_TOKEN
+
+  # '/grafana/api':
+  #   # May be an internal DNS
+  #   target: http://grafana.monitoring.svc/
+  #   headers:
+  #     Authorization: Bearer ${GRAFANA_TOKEN}
+
+  # '/prometheus/api':
+  #   # url to the api and path of your hosted prometheus instance
+  #   target: http://prometheus-server.monitoring.svc/api/v1/
+
   ### Example for how to add a proxy endpoint for the frontend.
   ### A typical reason to do this is to handle HTTPS and CORS for internal services.
   # '/test':
   #   target: 'https://example.com'
   #   changeOrigin: true
+
+# sonarqube:
+#   baseUrl: https://sonar.diegoluisi.eti.br
+#   apiKey: '${SONARQUBE_TOKEN}'
+
+# grafana:
+#   # Publicly accessible domain
+#   domain: https://grafana.diegoluisi.eti.br
 
 # Reference documentation http://backstage.io/docs/features/techdocs/configuration
 # Note: After experimenting with basic setup, use CI/CD to generate docs
@@ -101,8 +144,8 @@ auth:
   providers:
     github:
       development:
-        clientId: 'aeaef8d948e1005c7d71'
-        clientSecret: 'b4c39b9da93370f99e4b84ec9016914ef57a0b86'
+        clientId: ${GITHUB_CLIENT_ID}
+        clientSecret: ${GITHUB_CLIENT_SECRET}
 
 scaffolder:
   # see https://backstage.io/docs/features/software-templates/configuration for software template options
@@ -112,37 +155,48 @@ catalog:
     entityFilename: catalog-info.yaml
     pullRequestBranchName: backstage-integration
   rules:
-    - allow: [Component, System, API, Resource, Location, Template]
-  # locations:
-  #   # Local example data, file locations are relative to the backend process, typically `packages/backend`
-  #   - type: file
-  #     target: ../../examples/entities.yaml
+    - allow:
+        - API
+        - Component
+        - Domain
+        - Group
+        - System
+        - User
+        - Template
+        - Resource
+        - Location
 
-  #   # Local example template
-  #   - type: file
-  #     target: ../../examples/template/template.yaml
-  #     rules:
-  #       - allow: [Template]
+  locations:
+    - type: url
+      target: https://github.com/dbserver/backstage-catalog/blob/main/devxp/all.yaml
+    # - type: file
+    #   target: ../../examples/entities.yaml
 
-  #   - type: file
-  #     target: ../../examples/template-java/template.yml
-  #     rules:
-  #       - allow: [Template]
+    # Local example template
+    # - type: file
+    #   target: ../../examples/template/template.yaml
+    #   rules:
+    #     - allow: [Template]
 
-  #   # Local example organizational data
-  #   - type: file
-  #     target: ../../examples/org.yaml
-  #     rules:
-  #       - allow: [User, Group]
+    #   - type: file
+    #     target: ../../examples/template-java/template.yml
+    #     rules:
+    #       - allow: [Template]
 
-  #   ## Uncomment these lines to add more example data
-  #   - type: url
-  #     target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/all.yaml
-  #     rules:
-  #       - allow: [Component, System, API, Resource, Location, Template]
+    # Local example organizational data
+    # - type: file
+    #   target: ../../examples/org.yaml
+    #   rules:
+    #     - allow: [User, Group]
 
-  #   ## Uncomment these lines to add an example org
-  #   - type: url
-  #     target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/acme-corp.yaml
-  #     rules:
-  #       - allow: [Component, System, API, Resource, Location, Template]
+    ## Uncomment these lines to add more example data
+    # - type: url
+    #   target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/all.yaml
+    #   rules:
+    #     - allow: [Component, System, API, Resource, Location, Template]
+
+    ## Uncomment these lines to add an example org
+    # - type: url
+    #   target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/acme-corp.yaml
+    #   rules:
+    #     - allow: [Component, System, API, Resource, Location, Template]
